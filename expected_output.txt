@@ -1,0 +1,116 @@
+=== 1. Basic facts ===
+
+?- parent(robert, michael).
+   true.
+
+?- male(jake).
+   true.
+
+?- female(jake).
+   false.
+
+?- parent(X, emily).
+   X=michael
+   X=jennifer
+
+=== 2. Children of a person ===
+
+?- parent(michael, X).
+   X=emily
+   X=jake
+
+?- children_of(robert, L).
+   L=[david,michael,susan]
+
+?- children_of(sophia, L).
+   L=[]
+
+=== 3. Grandparent ===
+
+?- grandparent(robert, emily).
+   true.
+
+?- grandparent(robert, noah).
+   false.
+
+?- grandparent(X, olivia).
+   X=robert
+   X=linda
+
+?- grandchildren_of(linda, L).
+   L=[emily,ethan,jake,olivia,sophia]
+
+?- grandmother(X, noah).
+   X=jennifer
+
+=== 4. Siblings ===
+
+?- sibling(emily, X).   (raw rule, note the duplicate)
+   X=jake
+   X=jake
+
+?- siblings_of(michael, L).
+   L=[david,susan]
+
+?- siblings_of(sophia, L).
+   L=[]
+
+?- sibling(susan, david).
+   true.
+
+?- sibling(emily, emily).
+   false.
+
+?- brother(X, susan).
+   X=michael
+   X=michael
+   X=david
+   X=david
+
+=== 5. Cousins ===
+
+?- cousin(emily, olivia).
+   true.
+
+?- cousin(emily, jake).
+   false.
+
+?- cousin(noah, ava).
+   false.
+
+?- cousins_of(sophia, L).
+   L=[emily,ethan,jake,olivia]
+
+?- is_cousin(jake, ethan).
+   Yes, jake and ethan are cousins.
+
+?- is_cousin(jake, emily).
+   No, jake and emily are not cousins.
+
+?- uncle(X, emily).
+   X=david
+   X=david
+
+?- aunt(X, sophia).
+   X=susan
+   X=susan
+
+=== 6. Recursive: ancestors and descendants ===
+
+?- descendants_of(robert, L).
+   L=[ava,david,emily,ethan,jake,michael,noah,olivia,sophia,susan]
+
+?- descendants_of(michael, L).
+   L=[ava,emily,jake,noah]
+
+?- ancestors_of(ava, L).
+   L=[chris,emily,jennifer,linda,michael,robert]
+
+?- descendant(noah, linda).
+   true.
+
+?- descendant(linda, noah).
+   false.
+
+?- generations_apart(robert, noah, N).
+   N=3

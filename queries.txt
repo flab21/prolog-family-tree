@@ -1,0 +1,35 @@
+Sample queries for family_tree.pl
+Load first:  swipl family_tree.pl
+Then type these at the ?- prompt. Press ; for more answers, Enter to stop.
+(expected_output.txt has every answer, from running: swipl run_queries.pl)
+
+--- Basic facts ---
+parent(robert, michael).        % true
+female(jake).                   % false
+parent(X, emily).               % X = michael ; X = jennifer
+
+--- Children of a person ---
+parent(michael, X).             % X = emily ; X = jake
+children_of(robert, L).         % L = [david, michael, susan]
+
+--- Grandparent ---
+grandparent(robert, emily).     % true
+grandparent(X, olivia).         % X = robert ; X = linda
+grandchildren_of(linda, L).     % L = [emily, ethan, jake, olivia, sophia]
+
+--- Siblings ---
+sibling(emily, X).              % X = jake ; X = jake   (once per parent)
+siblings_of(michael, L).        % L = [david, susan]
+sibling(emily, emily).          % false
+
+--- Cousins ---
+cousin(emily, olivia).          % true
+cousin(emily, jake).            % false (they are siblings)
+cousins_of(sophia, L).          % L = [emily, ethan, jake, olivia]
+is_cousin(jake, ethan).         % Yes, jake and ethan are cousins.
+
+--- Recursive ---
+descendants_of(robert, L).      % L = [ava, david, emily, ethan, jake, michael, noah, olivia, sophia, susan]
+ancestors_of(ava, L).           % L = [chris, emily, jennifer, linda, michael, robert]
+descendant(noah, linda).        % true
+generations_apart(robert, noah, N).   % N = 3
